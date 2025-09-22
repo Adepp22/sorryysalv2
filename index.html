@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Romantic Apology</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+      overflow: hidden;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      z-index: 2;
+    }
+    .card {
+      position: relative;
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 750px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      z-index: 2;
+      text-align: center;
+      animation: fadeIn 1.5s ease;
+    }
+    h1 {
+      margin-top: 0;
+      color: #ff6b81;
+      font-size: 28px;
+    }
+    .message {
+      margin: 20px 0;
+      padding: 16px;
+      background: #fff6f8;
+      border-radius: 12px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: #333;
+      white-space: pre-wrap;
+      min-height: 180px;
+      text-align: left;
+    }
+    .heart {
+      position: absolute;
+      font-size: 22px;
+      color: #ff6b81;
+      animation: floatUp 6s linear infinite;
+    }
+    /* Polaroid Style */
+    .polaroid {
+      background: #fff;
+      padding: 10px 10px 30px;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      transform: rotate(-5deg);
+      animation: dropIn 1.8s ease forwards;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .polaroid img {
+      width: 180px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .polaroid.right {
+      transform: rotate(5deg);
+      animation-delay: 0.5s; /* masuk lambat sikit kanan */
+    }
+    .polaroid:hover {
+      transform: scale(1.05) rotate(0deg);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.35);
+    }
+    .caption {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 8px;
+      color: #444;
+      font-style: italic;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.6); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes dropIn {
+      0% { opacity: 0; transform: translateY(-80px) rotate(-15deg) scale(0.8); }
+      60% { opacity: 1; transform: translateY(20px) rotate(8deg) scale(1.05); }
+      100% { transform: translateY(0) rotate(var(--rotate, -5deg)) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Music -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="yoursong.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="container">
+    <!-- Left Polaroid -->
+    <div class="polaroid" style="--rotate:-5deg;">
+      <img src="photo1.jpg" alt="Us together">
+      <div class="caption">My Love ❤️</div>
+    </div>
+
+    <!-- Card Message -->
+    <div class="card">
+      <h1>💌 Sorry Princess Amani</h1>
+      <div id="message" class="message"></div>
+    </div>
+
+    <!-- Right Polaroid -->
+    <div class="polaroid right" style="--rotate:5deg;">
+      <img src="photo2.jpg" alt="Special Moment">
+      <div class="caption">Forever Us 💕</div>
+    </div>
+  </div>
+
+  <script>
+    const apologyText = `My Princess Amani ❤️,
+
+I just want to say from the bottom of my heart that I’m truly sorry. 
+I know I’ve hurt you, and babyy nak mintakk maaff sangat sangatttt  
+You mean the world to me, and I can’t stand the thought of letting you down babyy taknak sayangg sad please and baby tau baby banyak salahh soo maffkan babyy yee sayanggg i tryy to be betterr for you everyydayy soo pleasee maafkann babyy atas semua kesalahann babyy kat sayanggg pleasee be happyyy againn sayangg i knoww babyyy takk elok macam orangg laenn but i tryy to be betterr for you everyydayy sayangg babyy tauu banyakk sangatt salahh baby kat sayangg pleasee maafkann babyy let's startt new chapterr of us okayy? just focus on us sayangg takyah dengar cakapp orangg i'm hereee for you everytimee u need me u have ur boyfriendd sayanggg okayy i'm sooo sorryy
+
+You are my heart, my happiness, and my forever. 💖
+
+With all my love,
+[Your Boyfriend Adepp]`;
+
+    const msgEl = document.getElementById('message');
+
+    // Auto typewriter animation
+    async function typeMessage() {
+      msgEl.textContent = "";
+      for (let i = 0; i < apologyText.length; i++) {
+        msgEl.textContent += apologyText[i];
+        await new Promise(r => setTimeout(r, apologyText[i] === "\n" ? 80 : 35));
+      }
+    }
+
+    // Floating hearts background
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "❤";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 4 + Math.random() * 3 + "s";
+      heart.style.fontSize = (18 + Math.random() * 18) + "px";
+      const colors = ["#ff6b81", "#ff99ac", "#ff4d6d", "#e75480", "#d6336c"];
+      heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createHeart, 600);
+
+    // Run animation automatically
+    window.onload = typeMessage;
+  </script>
+</body>
+</html>
